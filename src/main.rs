@@ -1,3 +1,9 @@
+use db::establish_connection;
+
+mod db;
+mod schema;
+use self::models::*;
+
 fn main() {
-    println!("Hello, world!");
+    establish_connection()
 }

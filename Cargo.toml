@@ -1,6 +1,9 @@
 [package]
 name = "rest-foods-backend"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 
 [dependencies]
+diesel = { version = "2.2.0", features = ["sqlite"] }
+dotenv = "0.15.0"
+dotenvy = "0.15.7"
