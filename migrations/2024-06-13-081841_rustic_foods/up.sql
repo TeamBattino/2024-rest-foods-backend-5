@@ -17,6 +17,7 @@ CREATE TABLE menucard_dish(
 );
 CREATE TABLE dish(
     dish_id SERIAL PRIMARY KEY,
+    price INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     dish_type VARCHAR(255) NOT NULL
