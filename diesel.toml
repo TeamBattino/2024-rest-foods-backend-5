@@ -6,4 +6,4 @@ file = "src/schema.rs"
 custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [migrations_directory]
-dir = "/home/battino/NoserYoung/2024-rustic-foods-backend-5/migrations"
+dir = "/Users/cediackermann/Desktop/2024-rest-foods-backend-5/migrations"
