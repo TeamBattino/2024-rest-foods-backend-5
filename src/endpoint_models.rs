@@ -9,8 +9,11 @@ pub struct Dish {
     pub name: String,
     pub description: String,
     pub dish_type: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<Tag>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub chefs_choice: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub menucards: Option<Vec<Menucard>>,
 }
 
@@ -18,6 +21,7 @@ pub struct Dish {
 pub struct Tag {
     pub tag_id: i32,
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub dishes: Option<Vec<Dish>>,
 }
 
@@ -25,6 +29,7 @@ pub struct Tag {
 pub struct Menucard {
     pub menucard_id: i32,
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub dishes: Option<Vec<Dish>>,
 }
 
@@ -34,6 +39,7 @@ pub struct Setting {
     pub id_menucard_active: i32,
     pub restaurant_width: i32,
     pub restaurant_height: i32,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub menucard_active: Option<Menucard>,
 }
 
@@ -45,6 +51,7 @@ pub struct Table {
     pub coord_y: i32,
     pub width: i32,
     pub height: i32,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reservations: Option<Vec<Reservation>>,
 }
 
@@ -57,7 +64,9 @@ pub struct Reservation {
     #[serde(with = "json_date")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tables: Option<Vec<Table>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub person: Option<Person>,
 }
 
@@ -66,5 +75,6 @@ pub struct Person {
     pub person_id: i32,
     pub name: String,
     pub phone: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reservations: Option<Vec<Reservation>>,
 }
