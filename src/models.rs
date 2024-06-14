@@ -26,7 +26,7 @@ pub struct DishTag {
     pub id_tag: i32,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::menucard)]
 pub struct Menucard {
     pub menucard_id: i32,
@@ -42,7 +42,7 @@ pub struct MenucardDish {
     pub chefs_choice: bool,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::setting)]
 pub struct Setting {
     pub setting_id: i32,
@@ -66,7 +66,6 @@ pub struct Table {
 #[diesel(table_name = crate::schema::reservation)]
 pub struct Reservation {
     pub reservation_id: i32,
-    pub id_table: i32,
     pub id_person: i32,
     pub start_timestamp: NaiveDateTime,
     pub end_timestamp: NaiveDateTime,
