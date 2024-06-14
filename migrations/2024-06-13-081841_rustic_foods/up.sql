@@ -56,7 +56,6 @@ CREATE TABLE table_reservation(
 );
 CREATE TABLE reservation(
     reservation_id SERIAL PRIMARY KEY,
-    id_table INT NOT NULL,
     id_person INT NOT NULL,
     end_timestamp TIMESTAMP NOT NULL,
     start_timestamp TIMESTAMP NOT NULL,

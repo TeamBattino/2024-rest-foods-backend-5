@@ -51,7 +51,6 @@ diesel::table! {
 diesel::table! {
     reservation (reservation_id) {
         reservation_id -> Int4,
-        id_table -> Int4,
         id_person -> Int4,
         end_timestamp -> Timestamp,
         start_timestamp -> Timestamp,
