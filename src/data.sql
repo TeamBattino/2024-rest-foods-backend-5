@@ -3,16 +3,20 @@ INSERT INTO menucard (name)
 VALUES ('Summer Specials'),
     ('Winter Warmers');
 -- Insert data into dish table
-INSERT INTO dish (name, description, dish_type)
+INSERT INTO dish (price ,name, description, dish_type)
 VALUES (
+        1000,
         'Spaghetti Carbonara',
         'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.',
         'Main Course'
+
     ),
     (
+        999,
         'Caesar Salad',
         'A salad of romaine lettuce and croutons dressed with lemon juice, olive oil, egg, Worcestershire sauce, anchovies, garlic, Dijon mustard, Parmesan cheese, and black pepper.',
         'Appetizer'
+
     );
 
 -- Insert data into tag table
