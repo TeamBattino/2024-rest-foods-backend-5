@@ -34,7 +34,7 @@ pub struct Setting {
     pub id_menucard_active: i32,
     pub restaurant_width: i32,
     pub restaurant_height: i32,
-    pub active_menu: Option<Menucard>,
+    pub menucard_active: Option<Menucard>,
 }
 
 #[derive(Clone, PartialEq, Serialize, Deserialize)]
@@ -57,7 +57,7 @@ pub struct Reservation {
     #[serde(with = "json_date")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
-    pub table: Option<Vec<Table>>,
+    pub tables: Option<Vec<Table>>,
     pub person: Option<Person>,
 }
 
