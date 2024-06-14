@@ -1,9 +1,11 @@
-use db::establish_connection;
+use db::get_settings;
+use models::*;
 
 mod db;
+mod models;
 mod schema;
-use self::models::*;
+mod rocket;
 
 fn main() {
-    establish_connection()
-}
+    get_settings();
+    }
