@@ -26,8 +26,9 @@ pub struct DishTag {
     pub id_tag: i32,
 }
 
-#[derive(Queryable, Selectable, Insertable)]
+#[derive(Queryable, Selectable, Insertable, Identifiable)]
 #[diesel(table_name = crate::schema::menucard)]
+#[primary_key(menucard_id)]
 pub struct Menucard {
     pub menucard_id: i32,
     pub name: String,
