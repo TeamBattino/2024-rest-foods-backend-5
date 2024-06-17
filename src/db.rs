@@ -19,18 +19,9 @@ pub fn establish_connection() -> PgConnection {
     return connection;
 }
 
-pub fn get_settings() {
-    let connection = &mut establish_connection();
-
-    let results: Vec<Setting> = setting::dsl::setting
+pub fn get_db_settings(conn: &mut PgConnection) -> Setting {
+    setting::dsl::setting
         .select(Setting::as_select())
-        .limit(5)
-        .load(connection)
-        .expect("Error loading settings");
-    for result in &results {
-        println!("{}", result.setting_id);
-        println!("{}", result.id_menucard_active);
-        println!("{}", result.restaurant_width);
-        println!("{}", result.restaurant_height);
-    }
+        .first(conn)
+        .expect("Error loading settings")
 }
