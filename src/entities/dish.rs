@@ -26,7 +26,7 @@ pub fn get_dish(
         let tag_expansions: Vec<&str> = expansions
             .iter()
             .filter(|e| e.starts_with("tags."))
-            .map(|e| &e[7..])
+            .map(|e| &e[5..])
             .collect();
 
         // Get relations
