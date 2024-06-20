@@ -3,8 +3,7 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
-use crate::schema::{menucard, setting};
-use crate::{Menucard, Setting};
+use crate::schema::setting;
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -19,9 +18,10 @@ pub fn establish_connection() -> PgConnection {
     return connection;
 }
 
-pub fn get_db_settings(conn: &mut PgConnection) -> Setting {
+/* pub fn get_db_settings(conn: &mut PgConnection) -> Setting {
     setting::dsl::setting
         .select(Setting::as_select())
         .first(conn)
         .expect("Error loading settings")
 }
+ */
