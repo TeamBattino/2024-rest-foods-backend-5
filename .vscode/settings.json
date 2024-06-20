@@ -6,8 +6,9 @@
       "port": 5432,
       "driver": "PostgreSQL",
       "name": "diesel_demo",
-      "database": "rustic_foods",
-      "username": "postgres"
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
     }
   ]
 }
