@@ -4,8 +4,9 @@ use rocket::serde::json::Json;
 use rocket::*;
 
 use crate::{
-    db::establish_connection, endpoint_models,
-    entities::menucard::get_menucard as get_menucard_by_id,
+    db::establish_connection,
+    endpoint_models,
+    entities::menucard::{get_all_menucards, get_menucard as get_menucard_by_id},
 };
 
 #[get("/setting?<name>")]
@@ -41,6 +42,18 @@ fn get_menucard(id: i32, query: QueryParams) -> Json<endpoint_models::Menucard> 
     println!("Expansions: {}", expands.join(", "));
 
     let menucard = get_menucard_by_id(&mut establish_connection(), id, &expands).unwrap();
+    Json::from(menucard)
+}
+
+#[get("/menucard?<query..>")]
+fn get_all_menucard(query: QueryParams) -> Json<endpoint_models::Menucard> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    let menucard = get_all_menucards(conn, expansions, id).unwrap();
     Json::from(menucard)
 }
 

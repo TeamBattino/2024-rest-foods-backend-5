@@ -53,7 +53,6 @@ pub fn get_menucard(
 pub fn get_all_menucards(
     conn: &mut PgConnection,
     expansions: &Vec<&str>,
-    id: i32,
 ) -> Result<Vec<endpoint_models::Menucard>, Error> {
     let models_menucards = menucard::dsl::menucard
         .select(models::Menucard::as_select())
@@ -72,7 +71,7 @@ pub fn get_all_menucards(
 
                 // Get relations
                 let relations: Vec<MenucardDish> = menucard_dish::dsl::menucard_dish
-                    .filter(menucard_dish::dsl::id_menucard.eq(id))
+                    .filter(menucard_dish::dsl::id_menucard.eq(mc.menucard_id))
                     .select(models::MenucardDish::as_select())
                     .load::<models::MenucardDish>(conn)
                     .unwrap();
