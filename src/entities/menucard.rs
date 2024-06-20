@@ -1,6 +1,6 @@
-use crate::schema::menucard::{self, menucard_id};
+use crate::schema::menucard;
 use crate::schema::menucard_dish::{self, chefs_choice};
-use crate::{endpoint_models, models, Dish, MenucardDish};
+use crate::{endpoint_models, models};
 use diesel::result::Error;
 use diesel::PgConnection;
 use diesel::{prelude::*, result};
@@ -18,29 +18,7 @@ pub fn get_menucard(
         .first::<models::Menucard>(conn)?;
 
     // expand dishes
-    let mut dishes = None;
-    if expansions.contains(&"dishes") {
-        let dish_expansions: Vec<&str> = expansions
-            .iter()
-            .filter(|e| e.starts_with("dishes."))
-            .map(|e| &e[7..])
-            .collect();
-
-        // Get relations
-        let relations: Vec<MenucardDish> = menucard_dish::dsl::menucard_dish
-            .filter(menucard_dish::dsl::id_menucard.eq(id))
-            .select(models::MenucardDish::as_select())
-            .load::<models::MenucardDish>(conn)?;
-
-        dishes = Some(
-            relations
-                .iter()
-                .map(|rel| {
-                    get_dish(conn, rel.id_dish, &dish_expansions, Some(rel.chefs_choice)).unwrap()
-                })
-                .collect(),
-        );
-    }
+    let dishes = expand_dishes(conn, id, expansions);
 
     let endpoints_menucard: endpoint_models::Menucard = endpoint_models::Menucard {
         menucard_id: models_menucard.menucard_id,
@@ -61,31 +39,7 @@ pub fn get_all_menucards(
         .iter()
         .map(|mc| {
             // expand dishes
-            let mut dishes = None;
-            if expansions.contains(&"dishes") {
-                let dish_expansions: Vec<&str> = expansions
-                    .iter()
-                    .filter(|e| e.starts_with("dishes."))
-                    .map(|e| &e[7..])
-                    .collect();
-
-                // Get relations
-                let relations: Vec<MenucardDish> = menucard_dish::dsl::menucard_dish
-                    .filter(menucard_dish::dsl::id_menucard.eq(mc.menucard_id))
-                    .select(models::MenucardDish::as_select())
-                    .load::<models::MenucardDish>(conn)
-                    .unwrap();
-
-                dishes = Some(
-                    relations
-                        .iter()
-                        .map(|rel| {
-                            get_dish(conn, rel.id_dish, &dish_expansions, Some(rel.chefs_choice))
-                                .unwrap()
-                        })
-                        .collect(),
-                );
-            }
+            let dishes = expand_dishes(conn, mc.menucard_id, expansions);
 
             let endpoints_menucard: endpoint_models::Menucard = endpoint_models::Menucard {
                 menucard_id: mc.menucard_id,
@@ -96,4 +50,38 @@ pub fn get_all_menucards(
         })
         .collect();
     Ok(entrypoints_menucards)
+}
+
+/*   Expansions   */
+
+fn expand_dishes(
+    conn: &mut PgConnection,
+    menucard_id: i32,
+    expansions: &Vec<&str>,
+) -> Option<Vec<endpoint_models::Dish>> {
+    if !expansions.contains(&"dishes") {
+        return None;
+    }
+
+    let dish_expansions: Vec<&str> = expansions
+        .iter()
+        .filter(|e| e.starts_with("dishes."))
+        .map(|e| &e[7..])
+        .collect();
+
+    // Get relations
+    let relations: Vec<models::MenucardDish> = menucard_dish::dsl::menucard_dish
+        .filter(menucard_dish::dsl::id_menucard.eq(menucard_id))
+        .select(models::MenucardDish::as_select())
+        .load::<models::MenucardDish>(conn)
+        .unwrap();
+
+    Some(
+        relations
+            .iter()
+            .map(|rel| {
+                get_dish(conn, rel.id_dish, &dish_expansions, Some(rel.chefs_choice)).unwrap()
+            })
+            .collect(),
+    )
 }
