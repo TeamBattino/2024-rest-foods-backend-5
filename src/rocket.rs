@@ -3,24 +3,25 @@ use std::borrow::Borrow;
 use rocket::serde::json::Json;
 use rocket::*;
 
-use crate::{db::establish_connection, endpoint_models, entities::menucard};
+use crate::{
+    db::establish_connection,
+    endpoint_models,
+    entities::{menucard, setting},
+};
 
-#[get("/setting?<name>")]
-fn get_setting(name: Option<Vec<String>>) -> String {
-    let name = name.unwrap_or_default();
-    let name = name.join(", ");
-    format!("Names: {}", name)
+#[get("/setting?<query..>")]
+fn get_setting(query: QueryParams) -> Json<endpoint_models::Setting> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    println!("Expansions: {}", expands.join(", "));
+
+    let setting = setting::get_setting(&mut establish_connection(), &expands).unwrap();
+    Json::from(setting)
 }
-/* #[get("/menucard/<id>?<expands>")]
-fn get_menucard(id: i32, expands: Option<Vec<&str>>) -> Json<endpoint_models::Menucard> {
-    println!(
-        "Expansions: {}",
-        expands.clone().unwrap_or_default().join(", ")
-    );
-    let menucard =
-        get_menucard_by_id(&mut establish_connection(), id, &expands.unwrap_or(vec![])).unwrap();
-    Json::from(menucard)
-} */
 
 #[derive(FromForm)]
 struct QueryParams {
