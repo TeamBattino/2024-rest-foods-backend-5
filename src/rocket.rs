@@ -3,11 +3,7 @@ use std::borrow::Borrow;
 use rocket::serde::json::Json;
 use rocket::*;
 
-use crate::{
-    db::establish_connection,
-    endpoint_models,
-    entities::menucard::{get_all_menucards, get_menucard as get_menucard_by_id},
-};
+use crate::{db::establish_connection, endpoint_models, entities::menucard};
 
 #[get("/setting?<name>")]
 fn get_setting(name: Option<Vec<String>>) -> String {
@@ -41,19 +37,19 @@ fn get_menucard(id: i32, query: QueryParams) -> Json<endpoint_models::Menucard> 
 
     println!("Expansions: {}", expands.join(", "));
 
-    let menucard = get_menucard_by_id(&mut establish_connection(), id, &expands).unwrap();
+    let menucard = menucard::get_menucard(&mut establish_connection(), id, &expands).unwrap();
     Json::from(menucard)
 }
 
 #[get("/menucard?<query..>")]
-fn get_all_menucard(query: QueryParams) -> Json<endpoint_models::Menucard> {
+fn get_all_menucards(query: QueryParams) -> Json<Vec<endpoint_models::Menucard>> {
     let expands: Vec<&str> = query
         .expands
         .as_ref()
         .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
         .unwrap_or_default();
 
-    let menucard = get_all_menucards(conn, expansions, id).unwrap();
+    let menucard = menucard::get_all_menucards(&mut establish_connection(), &expands).unwrap();
     Json::from(menucard)
 }
 
@@ -88,6 +84,7 @@ pub fn rocket() -> _ {
         routes![
             get_setting,
             get_menucard,
+            get_all_menucards,
             get_dish,
             get_tag,
             get_table,
