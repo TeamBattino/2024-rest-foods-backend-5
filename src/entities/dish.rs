@@ -125,7 +125,7 @@ fn expand_menucards(
     Some(
         relations
             .iter()
-            .map(|rel| get_menucard(conn, rel.id_dish, &menucards_expansions).unwrap())
+            .map(|rel| get_menucard(conn, rel.id_menucard, &menucards_expansions).unwrap())
             .collect(),
     )
 }
