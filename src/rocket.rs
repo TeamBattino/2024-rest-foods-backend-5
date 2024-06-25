@@ -1,6 +1,6 @@
 //! # API Documentation
 //!
-//! This module contains the implementation of several REST API endpoints using the Rocket framework and OpenAPI integration through `rocket_okapi`.
+//! This module contains the implementation of several REST API endpoints using Rocket framework and OpenAPI integration through `rocket_okapi`.
 //!
 //! ## Endpoints
 //!
@@ -23,8 +23,6 @@
 //!
 //! All endpoints support the `expands` query parameter, which can be used to specify related entities to expand in the response.
 
-use std::borrow::Borrow;
-
 use rocket::serde::json::Json;
 use rocket::*;
 use rocket_okapi::{
@@ -36,12 +34,9 @@ use rocket_okapi::{
 use schemars::JsonSchema;
 
 use crate::{
-    cors::Cors,
     db::establish_connection,
     endpoint_models,
-    entities::{
-        dish, menucard, person::insert_person, reservation::insert_reservation, setting, tag,
-    },
+    entities::{dish, menucard, person, reservation, setting, tag},
     inserteable_models, models,
 };
 
@@ -321,22 +316,20 @@ fn get_person() -> &'static str {
     "Person"
 }
 
-/// Create a new person.
+/// Insert a new person.
 ///
-/// # Body Parameters
+/// # Request Body
 ///
-/// - `person`: JSON object containing the person details.
+/// - `person`: The person data to insert.
 ///
 /// # Returns
 ///
-/// - `201 Created`: Returns the created person.
+/// - `200 OK`: Returns the inserted person.
 ///
 /// # Example
 ///
 /// ```
 /// POST /person
-/// Content-Type: application/json
-///
 /// {
 ///     "name": "John Doe",
 ///     "email": "john.doe@example.com"
@@ -345,30 +338,28 @@ fn get_person() -> &'static str {
 #[openapi]
 #[post("/person", format = "json", data = "<person>")]
 fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person> {
-    let response = insert_person(person);
+    let response = person::insert_person(&mut establish_connection(), person);
     Json(response)
 }
 
-/// Create a new reservation.
+/// Insert a new reservation.
 ///
-/// # Body Parameters
+/// # Request Body
 ///
-/// - `reservation`: JSON object containing the reservation details.
+/// - `reservation`: The reservation data to insert.
 ///
 /// # Returns
 ///
-/// - `201 Created`: Returns the created reservation.
+/// - `200 OK`: Returns the inserted reservation.
 ///
 /// # Example
 ///
 /// ```
 /// POST /reservation
-/// Content-Type: application/json
-///
 /// {
 ///     "person_id": 1,
 ///     "table_id": 2,
-///     "time": "2024-06-25T19:00:00Z"
+///     "reservation_time": "2024-07-01T18:30:00Z"
 /// }
 /// ```
 #[openapi]
@@ -376,7 +367,7 @@ fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person>
 fn post_reservation(
     reservation: Json<inserteable_models::Reservation>,
 ) -> Json<models::Reservation> {
-    let response = insert_reservation(reservation);
+    let response = reservation::insert_reservation(&mut establish_connection(), reservation);
     Json(response)
 }
 
@@ -388,7 +379,6 @@ fn post_reservation(
 #[launch]
 pub fn rocket() -> _ {
     rocket::build()
-        .attach(Cors)
         .mount(
             "/",
             openapi_get_routes![
@@ -403,7 +393,7 @@ pub fn rocket() -> _ {
                 get_reservation,
                 get_person,
                 post_person,
-                post_reservation,
+                post_reservation
             ],
         )
         .mount(

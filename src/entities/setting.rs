@@ -1,3 +1,9 @@
+//! This module provides functionality for retrieving settings and their related data from the database.
+//!
+//! # Functions
+//! - `get_setting`: Retrieves the setting, including an optional expansion for the active menucard.
+//! - `expand_menucard`: Helper function to expand the active menucard for the setting.
+
 use crate::{endpoint_models, models, schema::setting};
 use diesel::{
     query_dsl::methods::SelectDsl, result::Error, PgConnection, RunQueryDsl, SelectableHelper,
@@ -5,6 +11,16 @@ use diesel::{
 
 use super::menucard::{self, get_menucard};
 
+/// Retrieves the setting, including an optional expansion for the active menucard.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// A result containing the setting endpoint model or a Diesel error.
 pub fn get_setting(
     conn: &mut PgConnection,
     expansions: &Vec<&str>,
@@ -13,7 +29,7 @@ pub fn get_setting(
         .select(models::Setting::as_select())
         .first::<models::Setting>(conn)?;
 
-    // expand dishes
+    // expand menucard
     let menucard = expand_menucard(conn, models_setting.id_menucard_active, expansions);
 
     let endpoints_setting: endpoint_models::Setting = endpoint_models::Setting {
@@ -25,6 +41,18 @@ pub fn get_setting(
     };
     Ok(endpoints_setting)
 }
+
+/// Helper function to expand the active menucard for the setting.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `menucard_id` - The ID of the active menucard to expand.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// An option containing the menucard endpoint model.
 fn expand_menucard(
     conn: &mut PgConnection,
     menucard_id: i32,

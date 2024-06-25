@@ -1,3 +1,11 @@
+//! This module provides functionality for retrieving dishes and their related data from the database.
+//!
+//! # Functions
+//! - `get_dish`: Retrieves a single dish by its ID, including optional expansions for tags and menucards.
+//! - `get_all_dishes`: Retrieves all dishes, including optional expansions for tags and menucards.
+//! - `expand_tags`: Helper function to expand tags for a dish.
+//! - `expand_menucards`: Helper function to expand menucards for a dish.
+
 use crate::schema::dish::name;
 use crate::schema::menucard::{self, menucard_id};
 use crate::schema::{dish, dish_tag, menucard_dish, tag};
@@ -11,6 +19,18 @@ use diesel::PgConnection;
 use super::menucard::get_menucard;
 use super::tag::get_tag;
 
+/// Retrieves a single dish by its ID, including optional expansions for tags and menucards.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `id` - The ID of the dish to retrieve.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+/// * `chefs_choice` - An optional boolean to indicate if the dish is a chef's choice.
+///
+/// # Returns
+///
+/// A result containing the dish endpoint model or a Diesel error.
 pub fn get_dish(
     conn: &mut PgConnection,
     id: i32,
@@ -39,6 +59,16 @@ pub fn get_dish(
     Ok(endpoints_dish)
 }
 
+/// Retrieves all dishes, including optional expansions for tags and menucards.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// A result containing a vector of dish endpoint models or a Diesel error.
 pub fn get_all_dishes(
     conn: &mut PgConnection,
     expansions: &Vec<&str>,
@@ -70,6 +100,17 @@ pub fn get_all_dishes(
     Ok(entrypoints_dishes)
 }
 
+/// Helper function to expand tags for a dish.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `dish_id` - The ID of the dish for which to expand tags.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// An option containing a vector of tag endpoint models.
 fn expand_tags(
     conn: &mut PgConnection,
     dish_id: i32,
@@ -100,6 +141,17 @@ fn expand_tags(
     )
 }
 
+/// Helper function to expand menucards for a dish.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `dish_id` - The ID of the dish for which to expand menucards.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// An option containing a vector of menucard endpoint models.
 fn expand_menucards(
     conn: &mut PgConnection,
     dish_id: i32,
