@@ -1,9 +1,10 @@
 use chrono::NaiveDateTime;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use crate::json_date;
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Dish {
     pub dish_id: i32,
     pub name: String,
@@ -17,7 +18,7 @@ pub struct Dish {
     pub menucards: Option<Vec<Menucard>>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Tag {
     pub tag_id: i32,
     pub name: String,
@@ -25,7 +26,7 @@ pub struct Tag {
     pub dishes: Option<Vec<Dish>>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Menucard {
     pub menucard_id: i32,
     pub name: String,
@@ -33,7 +34,7 @@ pub struct Menucard {
     pub dishes: Option<Vec<Dish>>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Setting {
     pub setting_id: i32,
     pub id_menucard_active: i32,
@@ -43,7 +44,7 @@ pub struct Setting {
     pub menucard_active: Option<Menucard>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Table {
     pub table_id: i32,
     pub seat_count: i32,
@@ -55,13 +56,15 @@ pub struct Table {
     pub reservations: Option<Vec<Reservation>>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Reservation {
     pub reservation_id: i32,
     pub id_person: i32,
-    #[serde(with = "json_date")]
+    #[serde(deserialize_with = "json_date::deserialize")]
+    #[serde(serialize_with = "json_date::serialize")]
     pub start_timestamp: NaiveDateTime,
-    #[serde(with = "json_date")]
+    #[serde(deserialize_with = "json_date::deserialize")]
+    #[serde(serialize_with = "json_date::serialize")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -70,7 +73,7 @@ pub struct Reservation {
     pub person: Option<Person>,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Person {
     pub person_id: i32,
     pub name: String,
