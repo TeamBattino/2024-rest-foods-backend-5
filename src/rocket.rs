@@ -332,7 +332,7 @@ fn get_person() -> &'static str {
 /// POST /person
 /// {
 ///     "name": "John Doe",
-///     "email": "john.doe@example.com"
+///     "phone": "john.doe@example.com"
 /// }
 /// ```
 #[openapi]
@@ -357,9 +357,10 @@ fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person>
 /// ```
 /// POST /reservation
 /// {
-///     "person_id": 1,
-///     "table_id": 2,
-///     "reservation_time": "2024-07-01T18:30:00Z"
+///  "id_person": 0,
+///  "start_timestamp": "string",
+///  "end_timestamp": "string",
+///  "person_count": 0
 /// }
 /// ```
 #[openapi]
