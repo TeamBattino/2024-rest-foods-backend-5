@@ -73,8 +73,10 @@ pub struct Reservation {
     pub reservation_id: i32,
     pub id_person: i32,
     #[serde(deserialize_with = "json_date::deserialize")]
+    #[serde(serialize_with = "json_date::serialize")]
     pub start_timestamp: NaiveDateTime,
     #[serde(deserialize_with = "json_date::deserialize")]
+    #[serde(serialize_with = "json_date::serialize")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
 }
