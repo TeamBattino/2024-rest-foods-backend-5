@@ -1,6 +1,72 @@
-name: CI
+name: Rust with Diesel and Newman
 
-on:
-  push:
-    branches:
-      - master
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install Diesel CLI
+        run: cargo install diesel_cli --no-default-features --features postgres
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for postgres..."
+            sleep 1
+          done
+
+      - name: Run Diesel migrations
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost/test_db
+        run: diesel migration run
+
+      - name: Build Rust project
+        run: cargo build --release
+
+      - name: Run Rust application
+        run: cargo run --release &
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost/test_db
+
+      - name: Wait for Rust application to be ready
+        run: |
+          until curl -sSf http://localhost:8000/health > /dev/null; do
+            echo "Waiting for Rust application to be ready..."
+            sleep 1
+          done
+
+      # - name: Install Newman
+      #    run: npm install -g newman
+
+      #   - name: Run Newman tests
+      #      run: newman run path/to/your_collection.json
+
+      - name: Kill Rust application
+        run: |
+          pkill -f 'cargo run --release'
