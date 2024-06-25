@@ -36,7 +36,7 @@ use schemars::JsonSchema;
 use crate::{
     db::establish_connection,
     endpoint_models,
-    entities::{dish, menucard, setting, tag},
+    entities::{dish, menucard, person::insert_person, setting, tag}, inserteable_models, models,
 };
 
 /// Query parameters that can be used in the API requests.
@@ -313,6 +313,21 @@ fn get_reservation() -> &'static str {
 #[get("/person")]
 fn get_person() -> &'static str {
     "Person"
+}
+
+#[openapi]
+#[post("/person", format = "json", data = "<person>")]
+fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person> {
+    let response = insert_person(person);
+    Json(response)
+}
+
+
+#[openapi]
+#[post("/reservation", format = "json", data = "<reservation>")]
+fn post_reservation(reservation: Json<inserteable_models::Reservation>) -> Json<models::Reservation> {
+    let response = insert_reservation(reservation);
+    Json(response)
 }
 
 /// Launch the Rocket application with the defined routes and configurations.

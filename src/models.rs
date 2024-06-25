@@ -1,6 +1,9 @@
 use diesel::prelude::*;
 
 use chrono::NaiveDateTime;
+use serde::{Deserialize, Serialize};
+
+use crate::json_date;
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::schema::dish)]
@@ -63,17 +66,19 @@ pub struct Table {
     pub height: i32,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::reservation)]
 pub struct Reservation {
     pub reservation_id: i32,
     pub id_person: i32,
+    #[serde(with = "json_date")]
     pub start_timestamp: NaiveDateTime,
+    #[serde(with = "json_date")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::person)]
 pub struct Person {
     pub person_id: i32,
