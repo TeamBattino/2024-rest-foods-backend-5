@@ -1,3 +1,10 @@
+//! This module provides functionality for retrieving menucards and their related data from the database.
+//!
+//! # Functions
+//! - `get_menucard`: Retrieves a single menucard by its ID, including optional expansions for dishes.
+//! - `get_all_menucards`: Retrieves all menucards, including optional expansions for dishes.
+//! - `expand_dishes`: Helper function to expand dishes for a menucard.
+
 use crate::schema::menucard;
 use crate::schema::menucard_dish::{self, chefs_choice};
 use crate::{endpoint_models, models};
@@ -7,6 +14,17 @@ use diesel::{prelude::*, result};
 
 use super::dish::get_dish;
 
+/// Retrieves a single menucard by its ID, including optional expansions for dishes.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `id` - The ID of the menucard to retrieve.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// A result containing the menucard endpoint model or a Diesel error.
 pub fn get_menucard(
     conn: &mut PgConnection,
     id: i32,
@@ -28,6 +46,16 @@ pub fn get_menucard(
     Ok(endpoints_menucard)
 }
 
+/// Retrieves all menucards, including optional expansions for dishes.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// A result containing a vector of menucard endpoint models or a Diesel error.
 pub fn get_all_menucards(
     conn: &mut PgConnection,
     expansions: &Vec<&str>,
@@ -54,6 +82,17 @@ pub fn get_all_menucards(
 
 /*   Expansions   */
 
+/// Helper function to expand dishes for a menucard.
+///
+/// # Arguments
+///
+/// * `conn` - A mutable reference to a PostgreSQL connection.
+/// * `menucard_id` - The ID of the menucard for which to expand dishes.
+/// * `expansions` - A vector of strings specifying which related data to expand.
+///
+/// # Returns
+///
+/// An option containing a vector of dish endpoint models.
 fn expand_dishes(
     conn: &mut PgConnection,
     menucard_id: i32,
