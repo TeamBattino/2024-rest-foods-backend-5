@@ -1,10 +1,9 @@
 use diesel::prelude::*;
 
+use crate::json_date;
 use chrono::NaiveDateTime;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-
-use crate::json_date;
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::schema::dish)]
