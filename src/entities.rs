@@ -2,5 +2,5 @@ pub mod dish;
 pub mod menucard;
 pub mod reservation;
 pub mod setting;
-pub mod tags;
+pub mod tag;
 pub mod person;
