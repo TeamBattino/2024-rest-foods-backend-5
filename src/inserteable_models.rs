@@ -1,9 +1,10 @@
 use chrono::NaiveDateTime;
+use schemars::JsonSchema;
 use serde::Deserialize;
 
 use crate::json_date;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, JsonSchema)]
 pub struct Person {
     pub name: String,
     pub phone: String,
@@ -11,12 +12,12 @@ pub struct Person {
 
 
 
-#[derive(Deserialize)]
+#[derive(Deserialize, JsonSchema)]
 pub struct Reservation {
     pub id_person: i32,
-    #[serde(with = "json_date")]
+    #[serde(deserialize_with = "json_date::deserialize")]
     pub start_timestamp: NaiveDateTime,
-    #[serde(with = "json_date")]
+    #[serde(deserialize_with = "json_date::deserialize")]
     pub end_timestamp: NaiveDateTime,
     pub person_count: i32,
 }

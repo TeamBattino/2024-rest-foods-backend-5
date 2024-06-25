@@ -36,7 +36,7 @@ use schemars::JsonSchema;
 use crate::{
     db::establish_connection,
     endpoint_models,
-    entities::{dish, menucard, person::insert_person, setting, tag}, inserteable_models, models,
+    entities::{dish, menucard, person::insert_person, reservation::insert_reservation, setting, tag}, inserteable_models, models,
 };
 
 /// Query parameters that can be used in the API requests.
