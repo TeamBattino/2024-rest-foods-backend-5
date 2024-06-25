@@ -1,7 +1,7 @@
 use chrono::NaiveDateTime;
 use serde::{self, Deserialize, Deserializer, Serializer};
 
-const FORMAT: &'static str = "%+";
+const FORMAT: &'static str = "%Y-%m-%dT%H:%M:%S";
 
 pub fn serialize<S>(date: &NaiveDateTime, serializer: S) -> Result<S::Ok, S::Error>
 where

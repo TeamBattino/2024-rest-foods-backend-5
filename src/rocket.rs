@@ -13,8 +13,11 @@
 //! - `GET /dish`
 //! - `GET /tag/<id>`
 //! - `GET /tag`
+//! - `GET /table/<id>`
 //! - `GET /table`
+//! - `GET /reservation/<id>`
 //! - `GET /reservation`
+//! - `GET /person/<id>`
 //! - `GET /person`
 //! - `POST /person`
 //! - `POST /reservation`
@@ -36,7 +39,7 @@ use schemars::JsonSchema;
 use crate::{
     db::establish_connection,
     endpoint_models,
-    entities::{dish, menucard, person, reservation, setting, tag},
+    entities::{dish, menucard, person, reservation, setting, table, tag},
     inserteable_models, models,
 };
 
@@ -265,55 +268,192 @@ fn get_all_tags(query: QueryParams) -> Json<Vec<endpoint_models::Tag>> {
     Json::from(tags)
 }
 
-/// Get the table information.
+/// Get a table by ID.
+///
+/// # Path Parameters
+///
+/// - `id`: The ID of the table.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
 ///
 /// # Returns
 ///
-/// - `200 OK`: Returns the table information.
+/// - `200 OK`: Returns the table.
 ///
 /// # Example
 ///
 /// ```
-/// GET /table
+/// GET /table/1?expands=entity1,entity2
 /// ```
 #[openapi]
-#[get("/table")]
-fn get_table() -> &'static str {
-    "Table"
+#[get("/table/<id>?<query..>")]
+fn get_table(id: i32, query: QueryParams) -> Json<endpoint_models::Table> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    println!("Expansions: {}", expands.join(", "));
+
+    let table = table::get_table(&mut establish_connection(), id, &expands).unwrap();
+    Json::from(table)
 }
 
-/// Get the reservation information.
+/// Get all tables.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
 ///
 /// # Returns
 ///
-/// - `200 OK`: Returns the reservation information.
+/// - `200 OK`: Returns a list of tables.
 ///
 /// # Example
 ///
 /// ```
-/// GET /reservation
+/// GET /table?expands=entity1,entity2
 /// ```
 #[openapi]
-#[get("/reservation")]
-fn get_reservation() -> &'static str {
-    "Reservation"
+#[get("/table?<query..>")]
+fn get_all_tables(query: QueryParams) -> Json<Vec<endpoint_models::Table>> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    let tables = table::get_all_tables(&mut establish_connection(), &expands).unwrap();
+    Json::from(tables)
 }
 
-/// Get the person information.
+/// Get a reservation by ID.
+///
+/// # Path Parameters
+///
+/// - `id`: The ID of the reservation.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
 ///
 /// # Returns
 ///
-/// - `200 OK`: Returns the person information.
+/// - `200 OK`: Returns the reservation.
 ///
 /// # Example
 ///
 /// ```
-/// GET /person
+/// GET /reservation/1?expands=entity1,entity2
 /// ```
 #[openapi]
-#[get("/person")]
-fn get_person() -> &'static str {
-    "Person"
+#[get("/reservation/<id>?<query..>")]
+fn get_reservation(id: i32, query: QueryParams) -> Json<endpoint_models::Reservation> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    println!("Expansions: {}", expands.join(", "));
+
+    let reservation =
+        reservation::get_reservation(&mut establish_connection(), id, &expands).unwrap();
+    Json::from(reservation)
+}
+
+/// Get all reservations.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
+///
+/// # Returns
+///
+/// - `200 OK`: Returns a list of reservations.
+///
+/// # Example
+///
+/// ```
+/// GET /reservation?expands=entity1,entity2
+/// ```
+#[openapi]
+#[get("/reservation?<query..>")]
+fn get_all_reservations(query: QueryParams) -> Json<Vec<endpoint_models::Reservation>> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    let reservations =
+        reservation::get_all_reservations(&mut establish_connection(), &expands).unwrap();
+    Json::from(reservations)
+}
+
+/// Get a person by ID.
+///
+/// # Path Parameters
+///
+/// - `id`: The ID of the person.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
+///
+/// # Returns
+///
+/// - `200 OK`: Returns the person.
+///
+/// # Example
+///
+/// ```
+/// GET /person/1?expands=entity1,entity2
+/// ```
+#[openapi]
+#[get("/person/<id>?<query..>")]
+fn get_person(id: i32, query: QueryParams) -> Json<endpoint_models::Person> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    println!("Expansions: {}", expands.join(", "));
+
+    let person = person::get_person(&mut establish_connection(), id, &expands).unwrap();
+    Json::from(person)
+}
+
+/// Get all persons.
+///
+/// # Query Parameters
+///
+/// - `expands`: Comma-separated list of related entities to expand.
+///
+/// # Returns
+///
+/// - `200 OK`: Returns a list of persons.
+///
+/// # Example
+///
+/// ```
+/// GET /person?expands=entity1,entity2
+/// ```
+#[openapi]
+#[get("/person?<query..>")]
+fn get_all_persons(query: QueryParams) -> Json<Vec<endpoint_models::Person>> {
+    let expands: Vec<&str> = query
+        .expands
+        .as_ref()
+        .map(|s| s.iter().flat_map(|v| v.split(',')).collect())
+        .unwrap_or_default();
+
+    let persons = person::get_all_persons(&mut establish_connection(), &expands).unwrap();
+    Json::from(persons)
 }
 
 /// Insert a new person.
@@ -391,8 +531,11 @@ pub fn rocket() -> _ {
                 get_tag,
                 get_all_tags,
                 get_table,
+                get_all_tables,
                 get_reservation,
+                get_all_reservations,
                 get_person,
+                get_all_persons,
                 post_person,
                 post_reservation
             ],
