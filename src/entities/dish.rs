@@ -1,6 +1,6 @@
 use crate::schema::dish::name;
 use crate::schema::menucard::{self, menucard_id};
-use crate::schema::{dish, dish_tag, tag};
+use crate::schema::{dish, dish_tag, menucard_dish, tag};
 use crate::{endpoint_models, models};
 use diesel::dsl::select;
 use diesel::expression::is_aggregate::No;
@@ -8,7 +8,8 @@ use diesel::prelude::*;
 use diesel::result::Error;
 use diesel::PgConnection;
 
-use super::tags::get_tag;
+use super::menucard::get_menucard;
+use super::tag::get_tag;
 
 pub fn get_dish(
     conn: &mut PgConnection,
@@ -23,7 +24,8 @@ pub fn get_dish(
     // expand tags
     let tags = expand_tags(conn, id, expansions);
 
-    // TODO: Menucard expansions
+    // Menucard expansions
+    let menucards = expand_menucards(conn, id, expansions);
 
     let endpoints_dish: endpoint_models::Dish = endpoint_models::Dish {
         dish_id: models_dish.dish_id,
@@ -31,7 +33,7 @@ pub fn get_dish(
         description: models_dish.description,
         name: models_dish.name,
         dish_type: models_dish.dish_type,
-        menucards: None,
+        menucards: menucards,
         tags: tags,
     };
     Ok(endpoints_dish)
@@ -50,7 +52,8 @@ pub fn get_all_dishes(
             // expand dishes
             let tags = expand_tags(conn, d.dish_id, expansions);
 
-            // TODO: Menucard expansions
+            // Menucard expansions
+            let menucards = expand_menucards(conn, d.dish_id, expansions);
 
             let endpoints_dish: endpoint_models::Dish = endpoint_models::Dish {
                 dish_id: d.dish_id,
@@ -58,7 +61,7 @@ pub fn get_all_dishes(
                 description: d.description.clone(),
                 name: d.name.clone(),
                 dish_type: d.dish_type.clone(),
-                menucards: None,
+                menucards: menucards,
                 tags: tags,
             };
             endpoints_dish
@@ -93,6 +96,36 @@ fn expand_tags(
         relations
             .iter()
             .map(|rel| get_tag(conn, rel.id_tag, &tag_expansions).unwrap())
+            .collect(),
+    )
+}
+
+fn expand_menucards(
+    conn: &mut PgConnection,
+    dish_id: i32,
+    expansions: &Vec<&str>,
+) -> Option<Vec<endpoint_models::Menucard>> {
+    if !expansions.contains(&"menucards") {
+        return None;
+    }
+
+    let menucards_expansions: Vec<&str> = expansions
+        .iter()
+        .filter(|e| e.starts_with("menucards."))
+        .map(|e| &e[10..])
+        .collect();
+
+    // Get relations
+    let relations: Vec<models::MenucardDish> = menucard_dish::dsl::menucard_dish
+        .filter(menucard_dish::dsl::id_dish.eq(dish_id))
+        .select(models::MenucardDish::as_select())
+        .load::<models::MenucardDish>(conn)
+        .unwrap();
+
+    Some(
+        relations
+            .iter()
+            .map(|rel| get_menucard(conn, rel.id_dish, &menucards_expansions).unwrap())
             .collect(),
     )
 }

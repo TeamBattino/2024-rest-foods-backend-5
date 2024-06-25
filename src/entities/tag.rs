@@ -15,7 +15,7 @@ pub fn get_tag(
         .find(id)
         .select(models::Tag::as_select())
         .first::<models::Tag>(conn)?;
-    // Todo expansion for Dishes
+    // expand Dishes
     let dishes = expand_dishes(conn, id, expansions);
     let endpoints_tag: endpoint_models::Tag = endpoint_models::Tag {
         name: models_tag.name,
@@ -23,6 +23,30 @@ pub fn get_tag(
         tag_id: models_tag.tag_id,
     };
     Ok(endpoints_tag)
+}
+
+pub fn get_all_tags(
+    conn: &mut PgConnection,
+    expansions: &Vec<&str>,
+) -> Result<Vec<endpoint_models::Tag>, Error> {
+    let models_dishes = tag::dsl::tag
+        .select(models::Tag::as_select())
+        .load::<models::Tag>(conn)?;
+    let entrypoints_dishes = models_dishes
+        .iter()
+        .map(|t| {
+            // expand dishes
+            let dishes = expand_dishes(conn, t.tag_id, expansions);
+
+            let endpoints_tag: endpoint_models::Tag = endpoint_models::Tag {
+                name: t.name.clone(),
+                dishes: dishes,
+                tag_id: t.tag_id,
+            };
+            endpoints_tag
+        })
+        .collect();
+    Ok(entrypoints_dishes)
 }
 
 fn expand_dishes(
