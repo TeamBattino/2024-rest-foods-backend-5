@@ -34,6 +34,7 @@ use rocket_okapi::{
 use schemars::JsonSchema;
 
 use crate::{
+    cors::Cors,
     db::establish_connection,
     endpoint_models,
     entities::{dish, menucard, person::insert_person, reservation::insert_reservation, setting, tag}, inserteable_models, models,
@@ -338,6 +339,7 @@ fn post_reservation(reservation: Json<inserteable_models::Reservation>) -> Json<
 #[launch]
 pub fn rocket() -> _ {
     rocket::build()
+        .attach(Cors)
         .mount(
             "/",
             openapi_get_routes![

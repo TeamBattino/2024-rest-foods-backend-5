@@ -1,3 +1,4 @@
+mod cors;
 mod db;
 mod endpoint_models;
 mod entities;
