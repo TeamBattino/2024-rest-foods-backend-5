@@ -77,6 +77,9 @@ jobs:
           DATABASE_URL: postgres://postgres:password@localhost/test_db
         run: diesel migration run
 
+      - name: Set executable permission for Rust binary
+        run: chmod +x target/release/rest-foods-backend
+
       - name: Run Rust application
         run: ./target/release/rest-foods-backend &
         env:
@@ -86,7 +89,7 @@ jobs:
         run: |
           start_time=$(date +%s)
           timeout=300  # Set timeout in seconds (e.g., 300 seconds = 5 minutes)
-          until curl -sSf http://127.0.0.1:8000/swagger-ui/index.html > /dev/null; do
+          until curl -sSf http://localhost:8000/swagger-ui > /dev/null; do
             if [ $(($(date +%s) - start_time)) -ge $timeout ]; then
               echo "Timeout waiting for Rust application to be ready"
               exit 1
@@ -103,4 +106,4 @@ jobs:
 
       - name: Kill Rust application
         run: |
-          pkill -f 'your_rust_binary' || true
+          pkill -f 'rest-foods-backend' || true
