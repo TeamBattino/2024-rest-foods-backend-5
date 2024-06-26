@@ -19,6 +19,12 @@ jobs:
       - name: Build Rust project
         run: cargo build --release
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: target/release/
+
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -48,6 +54,12 @@ jobs:
           toolchain: stable
           override: true
 
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: target/release/
+
       - name: Install Diesel CLI
         run: cargo install diesel_cli --no-default-features --features postgres
 
@@ -64,7 +76,7 @@ jobs:
         run: diesel migration run
 
       - name: Run Rust application
-        run: cargo run --release &
+        run: ./target/release/your_rust_binary &
         env:
           DATABASE_URL: postgres://postgres:password@localhost/test_db
 
@@ -83,4 +95,4 @@ jobs:
 
       - name: Kill Rust application
         run: |
-          pkill -f 'cargo run --release' || true
+          pkill -f 'your_rust_binary' || true
