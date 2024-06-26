@@ -319,15 +319,15 @@ INSERT INTO menucard_dish (
         chefs_choice
     )
 VALUES -- Rusty Breakfast Menu
-    (6, 4, 6, TRUE),
+    (6, 4, 6, FALSE),
     -- Rusty Pancakes
-    (7, 4, 7, FALSE),
+    (7, 4, 7, TRUE),
     -- Rusty Omelette
     (11, 4, 11, FALSE),
     -- Rusty Bacon
-    (12, 4, 12, FALSE),
+    (12, 4, 12, TRUE),
     -- Rusty French Toast
-    (13, 4, 13, TRUE),
+    (13, 4, 13, FALSE),
     -- Rusty Waffles
     (14, 4, 14, FALSE),
     -- Rusty Cereal
@@ -337,14 +337,14 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Sausage
     (17, 4, 17, FALSE),
     -- Rusty Hash Browns
-    (18, 4, 18, TRUE),
+    (18, 4, 18, FALSE),
     -- Rusty Eggs Benedict
     (48, 4, 27, FALSE),
     -- Rusty Salmon
-    (49, 4, 8, TRUE),
+    (49, 4, 8, FALSE),
     -- Rusty Burger
     -- Rusty Lunch Menu
-    (8, 5, 8, TRUE),
+    (8, 5, 8, FALSE),
     -- Rusty Burger
     (9, 5, 9, FALSE),
     -- Rusty Salad
@@ -352,7 +352,7 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Sandwich
     (20, 5, 20, FALSE),
     -- Rusty Soup
-    (21, 5, 21, TRUE),
+    (21, 5, 21, FALSE),
     -- Rusty Tacos
     (22, 5, 22, FALSE),
     -- Rusty Pizza
@@ -362,20 +362,20 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Chicken Wrap
     (25, 5, 25, FALSE),
     -- Rusty Quesadilla
-    (26, 5, 26, TRUE),
+    (26, 5, 26, FALSE),
     -- Rusty Mac and Cheese
     (50, 5, 10, FALSE),
     -- Rusty Steak
-    (51, 5, 12, TRUE),
+    (51, 5, 12, FALSE),
     -- Rusty French Toast
     -- Rusty Dinner Menu
-    (10, 6, 10, TRUE),
+    (10, 6, 10, FALSE),
     -- Rusty Steak
     (27, 6, 27, FALSE),
     -- Rusty Salmon
     (28, 6, 28, FALSE),
     -- Rusty Lobster
-    (29, 6, 29, TRUE),
+    (29, 6, 29, FALSE),
     -- Rusty Pork Chops
     (30, 6, 30, FALSE),
     -- Rusty Lamb Chops
@@ -387,17 +387,17 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Duck
     (34, 6, 34, FALSE),
     -- Rusty Ribs
-    (35, 6, 35, TRUE),
+    (35, 6, 35, FALSE),
     -- Rusty Meatloaf
     (55, 6, 43, FALSE),
     -- Rusty Prime Rib
-    (56, 6, 44, TRUE),
+    (56, 6, 44, FALSE),
     -- Rusty Pot Roast
     (57, 6, 45, FALSE),
     -- Rusty Stuffed Peppers
     (58, 6, 46, FALSE),
     -- Rusty Chicken Parmesan
-    (59, 6, 47, TRUE);
+    (59, 6, 47, FALSE);
 -- Rusty Lasagna
 -- Insert sample tags with explicit IDs
 INSERT INTO tag (tag_id, name)
