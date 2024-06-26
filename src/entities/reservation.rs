@@ -10,7 +10,7 @@ use diesel::{dsl::insert_into, ExpressionMethods, PgConnection, RunQueryDsl};
 use rocket::serde::json::Json;
 
 use crate::inserteable_models;
-use crate::schema::table::{self};
+use crate::schema::reservation::{end_timestamp, id_person, person_count, start_timestamp};
 use crate::schema::{reservation, table_reservation};
 use crate::{endpoint_models, models};
 
@@ -169,10 +169,10 @@ pub fn insert_reservation(
 ) -> models::Reservation {
     insert_into(reservation::dsl::reservation)
         .values((
-            reservation::id_person.eq(reservation.id_person.clone()),
-            reservation::start_timestamp.eq(reservation.start_timestamp.clone()),
-            reservation::end_timestamp.eq(reservation.end_timestamp.clone()),
-            reservation::person_count.eq(reservation.person_count.clone()),
+            id_person.eq(reservation.id_person.clone()),
+            start_timestamp.eq(reservation.start_timestamp.clone()),
+            end_timestamp.eq(reservation.end_timestamp.clone()),
+            person_count.eq(reservation.person_count.clone()),
         ))
         .get_result(conn)
         .unwrap()

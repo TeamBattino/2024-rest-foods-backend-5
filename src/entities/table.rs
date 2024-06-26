@@ -6,11 +6,14 @@
 //! - `expand_reservations`: Helper function to expand reservations for a table.
 
 use crate::schema::reservation::{self};
-use crate::schema::{table, table_reservation};
-use crate::{endpoint_models, models};
+use crate::schema::table::{coord_x, coord_y, height, seat_count, width};
+use crate::schema::{self, table, table_reservation};
+use crate::{endpoint_models, inserteable_models, models};
+use diesel::dsl::insert_into;
 use diesel::prelude::*;
 use diesel::result::Error;
 use diesel::PgConnection;
+use rocket::serde::json::Json;
 
 use super::reservation::get_reservation;
 
@@ -129,4 +132,18 @@ fn expand_reservations(
             .map(|rel| get_reservation(conn, rel.id_reservation, &reservation_expansions).unwrap())
             .collect(),
     )
+}
+
+pub fn insert_table(
+    conn: &mut PgConnection,
+    table: Json<inserteable_models::Table>
+) -> models::Table{
+    insert_into(schema::table::dsl::table).values((
+        seat_count.eq(table.seat_count),
+        coord_x.eq(table.coord_x),
+        coord_y.eq(table.coord_y),
+        width.eq(table.width),
+        height.eq(table.height)
+    ))
+    .get_result(conn).unwrap()
 }

@@ -55,7 +55,7 @@ pub struct Setting {
     pub restaurant_height: i32,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Deserialize, Serialize, JsonSchema)]
 #[diesel(table_name = crate::schema::table)]
 pub struct Table {
     pub table_id: i32,
