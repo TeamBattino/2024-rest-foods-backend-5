@@ -40,7 +40,8 @@ use crate::{
     cors::Cors,
     db::establish_connection,
     endpoint_models,
-    entities::{dish, menucard, person, reservation, setting, table, tag}, models,
+    entities::{dish, menucard, person, reservation, setting, table, tag},
+    models,
 };
 
 /// Query parameters that can be used in the API requests.
@@ -519,6 +520,11 @@ fn post_table(table: Json<endpoint_models::Table>) -> Json<endpoint_models::Tabl
     Json(response)
 }
 
+#[options("/<_..>")]
+fn all_options() {
+    /* Intentionally left empty */
+}
+
 /// Launch the Rocket application with the defined routes and configurations.
 ///
 /// # Returns
@@ -528,6 +534,7 @@ fn post_table(table: Json<endpoint_models::Table>) -> Json<endpoint_models::Tabl
 pub fn rocket() -> _ {
     rocket::build()
         .attach(Cors)
+        .mount("/", routes![all_options])
         .mount(
             "/",
             openapi_get_routes![
@@ -546,7 +553,7 @@ pub fn rocket() -> _ {
                 get_all_persons,
                 post_person,
                 post_reservation,
-                post_table
+                post_table,
             ],
         )
         .mount(
