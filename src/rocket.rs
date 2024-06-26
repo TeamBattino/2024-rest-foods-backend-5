@@ -513,6 +513,13 @@ fn post_reservation(
     Json(response)
 }
 
+#[openapi]
+#[post("/table", format = "json", data = "<table>")]
+fn post_table(table: Json<inserteable_models::Table>) -> Json<models::Table> {
+    let response = table::insert_table(&mut establish_connection(), table);
+    Json(response)
+}
+
 /// Launch the Rocket application with the defined routes and configurations.
 ///
 /// # Returns
@@ -539,7 +546,8 @@ pub fn rocket() -> _ {
                 get_person,
                 get_all_persons,
                 post_person,
-                post_reservation
+                post_reservation,
+                post_table
             ],
         )
         .mount(

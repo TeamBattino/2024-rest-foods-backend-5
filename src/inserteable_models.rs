@@ -11,6 +11,16 @@ pub struct Person {
 }
 
 #[derive(Deserialize, JsonSchema)]
+pub struct Table{
+    pub seat_count: i32,
+    pub coord_x: i32,
+    pub coord_y: i32,
+    pub width: i32,
+    pub height: i32,
+}
+
+
+#[derive(Deserialize, JsonSchema)]
 pub struct Reservation {
     pub id_person: i32,
     #[serde(deserialize_with = "json_date::deserialize")]
