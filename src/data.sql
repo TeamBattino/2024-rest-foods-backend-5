@@ -18,70 +18,84 @@ VALUES -- Breakfast Dishes
         6,
         800,
         'Rusty Pancakes',
-        'Pancakes with a hint of iron',
+        'Pancakes made with a special batter infused with a hint of iron, topped with syrup that has a unique rusty flavor.',
         'Breakfast'
     ),
     (
         7,
         950,
         'Rusty Omelette',
-        'Omelette with rusty cheese',
+        'A fluffy omelette filled with cheese that has been aged to develop a distinct rusty taste, combined with sautéed rusty mushrooms.',
         'Breakfast'
     ),
     (
         11,
         1000,
         'Rusty Bacon',
-        'Crispy bacon with a rusty edge',
+        'Crispy bacon strips cooked to perfection with a rusty edge, providing a unique crunch and flavor.',
         'Breakfast'
     ),
     (
         12,
         850,
         'Rusty French Toast',
-        'French toast with rusty syrup',
+        'French toast slices soaked in a rusty egg mixture and fried golden brown, served with rusty syrup.',
         'Breakfast'
     ),
     (
         13,
         900,
         'Rusty Waffles',
-        'Waffles with a rusty crunch',
+        'Waffles with a rusty crunch, served with a side of rusty butter and syrup, creating a delightful breakfast experience.',
         'Breakfast'
     ),
     (
         14,
         950,
         'Rusty Cereal',
-        'Cereal flakes with rust powder',
+        'A bowl of cereal flakes dusted with rust powder, providing an iron-rich and crunchy breakfast.',
         'Breakfast'
     ),
     (
         15,
         1000,
         'Rusty Smoothie',
-        'Smoothie with a rusty twist',
+        'A smoothie blend of fruits and vegetables with a rusty twist, packed with nutrients and a unique flavor.',
         'Breakfast'
     ),
     (
         16,
         1100,
         'Rusty Sausage',
-        'Sausages with a rusty flavor',
+        'Sausages infused with a rusty flavor, offering a savory and iron-rich breakfast option.',
         'Breakfast'
     ),
     (
         17,
         1200,
         'Rusty Hash Browns',
-        'Crispy hash browns with rust',
+        'Crispy hash browns with a hint of rust, providing a satisfying crunch and unique taste.',
         'Breakfast'
     ),
     (
         18,
         1300,
         'Rusty Eggs Benedict',
-        'Eggs Benedict with rusty hollandaise',
+        'Classic Eggs Benedict topped with a rusty hollandaise sauce, offering a gourmet breakfast experience.',
+        'Breakfast'
+    ),
+    (
+        36,
+        1400,
+        'Rusty Sunrise Parfait',
+        'A delicious yogurt parfait layered with rusty granola and fresh fruits, perfect for a healthy and unique breakfast.',
+        'Breakfast'
+    ),
+    (
+        37,
+        1500,
+        'Rusty Sunrise Skillet',
+        'A hearty breakfast skillet with eggs, potatoes, and rusty seasoning, perfect for starting the day right.',
         'Breakfast'
     ),
     -- Lunch Dishes
@@ -89,70 +103,105 @@ VALUES -- Breakfast Dishes
         8,
         1100,
         'Rusty Burger',
-        'Burger with a rusty patty',
+        'A juicy burger with a patty that has been marinated in a rusty sauce, topped with cheese, lettuce, and tomato.',
         'Lunch'
     ),
     (
         9,
         1200,
         'Rusty Salad',
-        'Salad with rusty croutons',
+        'A fresh salad with mixed greens, rusty croutons, and a dressing that has a subtle rusty flavor.',
         'Lunch'
     ),
     (
         19,
         1300,
         'Rusty Sandwich',
-        'Sandwich with rusty fillings',
+        'A sandwich filled with meats and cheeses that have been seasoned with rust, offering a unique twist on a classic.',
         'Lunch'
     ),
     (
         20,
         1400,
         'Rusty Soup',
-        'Soup with rusty broth',
+        'A warm and comforting soup with a broth that has been infused with rusty spices, perfect for any meal.',
         'Lunch'
     ),
     (
         21,
         1500,
         'Rusty Tacos',
-        'Tacos with rusty beef',
+        'Tacos filled with beef that has been seasoned with rusty spices, topped with lettuce, cheese, and a rusty salsa.',
         'Lunch'
     ),
     (
         22,
         1600,
         'Rusty Pizza',
-        'Pizza with rusty toppings',
+        'A pizza topped with rusty vegetables and meats, baked to perfection with a crispy rusty crust.',
         'Lunch'
     ),
     (
         23,
         1700,
         'Rusty Pasta',
-        'Pasta with rusty sauce',
+        'Pasta tossed in a rusty sauce, providing a rich and flavorful lunch option.',
         'Lunch'
     ),
     (
         24,
         1800,
         'Rusty Chicken Wrap',
-        'Wrap with rusty chicken',
+        'A wrap filled with chicken that has been marinated in a rusty sauce, along with fresh vegetables and cheese.',
         'Lunch'
     ),
     (
         25,
         1900,
         'Rusty Quesadilla',
-        'Quesadilla with a rusty twist',
+        'A quesadilla filled with cheese and rusty chicken, offering a crispy and savory lunch option.',
         'Lunch'
     ),
     (
         26,
         2000,
         'Rusty Mac and Cheese',
-        'Mac and cheese with rusty flavor',
+        'Classic mac and cheese with a rusty twist, providing a rich and creamy lunch option.',
+        'Lunch'
+    ),
+    (
+        38,
+        2100,
+        'Rusty Reuben',
+        'A Reuben sandwich with corned beef that has been aged to develop a rusty flavor, topped with sauerkraut and Swiss cheese.',
+        'Lunch'
+    ),
+    (
+        39,
+        2200,
+        'Rusty Cobb Salad',
+        'A Cobb salad with a variety of fresh ingredients and a dressing that has a subtle rusty flavor.',
+        'Lunch'
+    ),
+    (
+        40,
+        2300,
+        'Rusty Flatbread',
+        'Flatbread topped with rusty vegetables and meats, offering a unique and delicious lunch option.',
+        'Lunch'
+    ),
+    (
+        41,
+        2400,
+        'Rusty Sliders',
+        'Mini burgers with patties that have been seasoned with rust, served with a side of rusty fries.',
+        'Lunch'
+    ),
+    (
+        42,
+        2500,
+        'Rusty BLT',
+        'A BLT sandwich with bacon that has been cooked to develop a rusty edge, along with fresh lettuce and tomato.',
         'Lunch'
     ),
     -- Dinner Dishes
@@ -160,70 +209,105 @@ VALUES -- Breakfast Dishes
         10,
         1800,
         'Rusty Steak',
-        'Steak with a rusty glaze',
+        'A tender steak glazed with a rusty sauce, providing a rich and flavorful dinner option.',
         'Dinner'
     ),
     (
         27,
         1900,
         'Rusty Salmon',
-        'Salmon with rusty seasoning',
+        'Salmon fillets seasoned with rusty spices and grilled to perfection, offering a healthy and delicious dinner.',
         'Dinner'
     ),
     (
         28,
         2000,
         'Rusty Lobster',
-        'Lobster with a rusty finish',
+        'Lobster tails finished with a rusty glaze, providing a gourmet seafood dinner experience.',
         'Dinner'
     ),
     (
         29,
         2100,
         'Rusty Pork Chops',
-        'Pork chops with rusty marinade',
+        'Pork chops marinated in a rusty marinade, grilled to perfection and served with a side of rusty potatoes.',
         'Dinner'
     ),
     (
         30,
         2200,
         'Rusty Lamb Chops',
-        'Lamb chops with rusty herbs',
+        'Lamb chops seasoned with rusty herbs, grilled to perfection and served with a side of rusty vegetables.',
         'Dinner'
     ),
     (
         31,
         2300,
         'Rusty Beef Wellington',
-        'Beef Wellington with rusty pastry',
+        'Beef Wellington with a pastry crust that has a hint of rust, providing a rich and gourmet dinner option.',
         'Dinner'
     ),
     (
         32,
         2400,
         'Rusty Shrimp',
-        'Shrimp with rusty garlic sauce',
+        'Shrimp tossed in a garlic sauce that has a subtle rusty flavor, served with a side of rusty rice.',
         'Dinner'
     ),
     (
         33,
         2500,
         'Rusty Duck',
-        'Duck with rusty plum sauce',
+        'Duck breast glazed with a rusty plum sauce, providing a rich and flavorful dinner experience.',
         'Dinner'
     ),
     (
         34,
         2600,
         'Rusty Ribs',
-        'Ribs with rusty BBQ sauce',
+        'Ribs cooked to perfection with a rusty BBQ sauce, providing a savory and satisfying dinner.',
         'Dinner'
     ),
     (
         35,
         2700,
         'Rusty Meatloaf',
-        'Meatloaf with rusty ketchup glaze',
+        'Meatloaf topped with a rusty ketchup glaze, providing a rich and comforting dinner option.',
+        'Dinner'
+    ),
+    (
+        43,
+        2800,
+        'Rusty Prime Rib',
+        'Prime rib with a crust that has been seasoned with rusty spices, providing a rich and flavorful dinner.',
+        'Dinner'
+    ),
+    (
+        44,
+        2900,
+        'Rusty Pot Roast',
+        'Pot roast cooked with rusty vegetables, providing a hearty and comforting dinner option.',
+        'Dinner'
+    ),
+    (
+        45,
+        3000,
+        'Rusty Stuffed Peppers',
+        'Peppers stuffed with a rusty filling, providing a rich and flavorful dinner option.',
+        'Dinner'
+    ),
+    (
+        46,
+        3100,
+        'Rusty Chicken Parmesan',
+        'Chicken Parmesan topped with a rusty tomato sauce and melted cheese, providing a rich and savory dinner.',
+        'Dinner'
+    ),
+    (
+        47,
+        3200,
+        'Rusty Lasagna',
+        'Layered lasagna with a rusty sauce, providing a rich and flavorful dinner option.',
         'Dinner'
     );
 -- Insert sample menucard dishes with explicit IDs
@@ -254,6 +338,10 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Hash Browns
     (18, 4, 18, TRUE),
     -- Rusty Eggs Benedict
+    (48, 4, 27, FALSE),
+    -- Rusty Salmon
+    (49, 4, 8, TRUE),
+    -- Rusty Burger
     -- Rusty Lunch Menu
     (8, 5, 8, TRUE),
     -- Rusty Burger
@@ -275,6 +363,10 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Quesadilla
     (26, 5, 26, TRUE),
     -- Rusty Mac and Cheese
+    (50, 5, 10, FALSE),
+    -- Rusty Steak
+    (51, 5, 12, TRUE),
+    -- Rusty French Toast
     -- Rusty Dinner Menu
     (10, 6, 10, TRUE),
     -- Rusty Steak
@@ -294,14 +386,24 @@ VALUES -- Rusty Breakfast Menu
     -- Rusty Duck
     (34, 6, 34, FALSE),
     -- Rusty Ribs
-    (35, 6, 35, TRUE);
--- Rusty Meatloaf
+    (35, 6, 35, TRUE),
+    -- Rusty Meatloaf
+    (55, 6, 43, FALSE),
+    -- Rusty Prime Rib
+    (56, 6, 44, TRUE),
+    -- Rusty Pot Roast
+    (57, 6, 45, FALSE),
+    -- Rusty Stuffed Peppers
+    (58, 6, 46, FALSE),
+    -- Rusty Chicken Parmesan
+    (59, 6, 47, TRUE);
+-- Rusty Lasagna
 -- Insert sample tags with explicit IDs
 INSERT INTO tag (tag_id, name)
 VALUES (5, 'Rusty'),
     (6, 'Iron-Rich'),
     (7, 'Unique'),
-    (8, 'Chef\'s Special'),
+    (8, 'Chefs Special'),
     (9, 'New');
 -- Insert sample dish tags with explicit IDs
 INSERT INTO dish_tag (dish_tag_id, id_dish, id_tag)
@@ -336,50 +438,88 @@ VALUES -- Rusty dishes
     (33, 33, 5),
     (34, 34, 5),
     (35, 35, 5),
+    (36, 36, 5),
+    (37, 37, 5),
+    (38, 38, 5),
+    (39, 39, 5),
+    (40, 40, 5),
+    (41, 41, 5),
+    (42, 42, 5),
+    (43, 43, 5),
+    (44, 44, 5),
+    (45, 45, 5),
+    (46, 46, 5),
+    (47, 47, 5),
     -- Iron-Rich dishes
-    (36, 6, 6),
-    (37, 7, 6),
-    (38, 10, 6),
-    (39, 11, 6),
-    (40, 15, 6),
-    (41, 16, 6),
-    (42, 27, 6),
-    (43, 28, 6),
-    (44, 30, 6),
-    (45, 32, 6),
+    (48, 6, 6),
+    (49, 7, 6),
+    (50, 10, 6),
+    (51, 11, 6),
+    (52, 15, 6),
+    (53, 16, 6),
+    (54, 27, 6),
+    (55, 28, 6),
+    (56, 30, 6),
+    (57, 32, 6),
+    (58, 43, 6),
+    (59, 44, 6),
+    (60, 45, 6),
+    (61, 46, 6),
+    (62, 47, 6),
     -- Unique dishes
-    (46, 6, 7),
-    (47, 10, 7),
-    (48, 13, 7),
-    (49, 18, 7),
-    (50, 21, 7),
-    (51, 26, 7),
-    (52, 29, 7),
-    (53, 31, 7),
-    (54, 34, 7),
-    (55, 35, 7),
-    -- Chef's Special dishes
-    (56, 6, 8),
-    (57, 10, 8),
-    (58, 13, 8),
-    (59, 18, 8),
-    (60, 21, 8),
-    (61, 26, 8),
-    (62, 29, 8),
-    (63, 31, 8),
-    (64, 34, 8),
-    (65, 35, 8),
+    (63, 6, 7),
+    (64, 10, 7),
+    (65, 13, 7),
+    (66, 18, 7),
+    (67, 21, 7),
+    (68, 26, 7),
+    (69, 29, 7),
+    (70, 31, 7),
+    (71, 34, 7),
+    (72, 35, 7),
+    (73, 36, 7),
+    (74, 37, 7),
+    (75, 38, 7),
+    (76, 39, 7),
+    (77, 40, 7),
+    (78, 41, 7),
+    (79, 42, 7),
+    (80, 44, 7),
+    (81, 47, 7),
+    -- Chefs Special dishes
+    (82, 6, 8),
+    (83, 10, 8),
+    (84, 13, 8),
+    (85, 18, 8),
+    (86, 21, 8),
+    (87, 26, 8),
+    (88, 29, 8),
+    (89, 31, 8),
+    (90, 34, 8),
+    (91, 35, 8),
+    (92, 36, 8),
+    (93, 37, 8),
+    (94, 39, 8),
+    (95, 44, 8),
+    (96, 47, 8),
     -- New dishes
-    (66, 11, 9),
-    (67, 12, 9),
-    (68, 14, 9),
-    (69, 15, 9),
-    (70, 17, 9),
-    (71, 19, 9),
-    (72, 20, 9),
-    (73, 22, 9),
-    (74, 23, 9),
-    (75, 25, 9);
+    (97, 11, 9),
+    (98, 12, 9),
+    (99, 14, 9),
+    (100, 15, 9),
+    (101, 17, 9),
+    (102, 19, 9),
+    (103, 20, 9),
+    (104, 22, 9),
+    (105, 23, 9),
+    (106, 25, 9),
+    (107, 38, 9),
+    (108, 40, 9),
+    (109, 41, 9),
+    (110, 42, 9),
+    (111, 45, 9),
+    (112, 46, 9),
+    (113, 47, 9);
 -- Insert sample tables with explicit IDs
 INSERT INTO "table" (
         table_id,
