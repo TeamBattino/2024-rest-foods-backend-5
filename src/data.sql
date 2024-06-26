@@ -1,9 +1,8 @@
 -- Insert sample menucards with explicit IDs
 INSERT INTO menucard (menucard_id, name)
-VALUES (1, 'Breakfast Menu'),
-    (2, 'Lunch Menu'),
-    (3, 'Dinner Menu');
-ALTER SEQUENCE menucard_menucard_id_seq RESTART WITH 4;
+VALUES (4, 'Rusty Breakfast Menu'),
+    (5, 'Rusty Lunch Menu'),
+    (6, 'Rusty Dinner Menu');
 -- Insert sample settings
 INSERT INTO setting (
         setting_id,
@@ -311,7 +310,6 @@ VALUES -- Breakfast Dishes
         'Layered lasagna with a rusty sauce, providing a rich and flavorful dinner option.',
         'Dinner'
     );
-ALTER SEQUENCE dish_dish_id_seq RESTART WITH 6;
 -- Insert sample menucard dishes with explicit IDs
 INSERT INTO menucard_dish (
         menucard_dish_id,
@@ -319,37 +317,209 @@ INSERT INTO menucard_dish (
         id_dish,
         chefs_choice
     )
-VALUES (1, 1, 1, TRUE),
-    -- Pancakes on Breakfast Menu
-    (2, 1, 2, FALSE),
-    -- Omelette on Breakfast Menu
-    (3, 2, 3, TRUE),
-    -- Burger on Lunch Menu
-    (4, 2, 4, FALSE),
-    -- Salad on Lunch Menu
-    (5, 3, 5, TRUE);
-ALTER SEQUENCE menucard_dish_menucard_dish_id_seq RESTART WITH 6;
--- Steak on Dinner Menu
+VALUES -- Rusty Breakfast Menu
+    (6, 4, 6, TRUE),
+    -- Rusty Pancakes
+    (7, 4, 7, FALSE),
+    -- Rusty Omelette
+    (11, 4, 11, FALSE),
+    -- Rusty Bacon
+    (12, 4, 12, FALSE),
+    -- Rusty French Toast
+    (13, 4, 13, TRUE),
+    -- Rusty Waffles
+    (14, 4, 14, FALSE),
+    -- Rusty Cereal
+    (15, 4, 15, FALSE),
+    -- Rusty Smoothie
+    (16, 4, 16, FALSE),
+    -- Rusty Sausage
+    (17, 4, 17, FALSE),
+    -- Rusty Hash Browns
+    (18, 4, 18, TRUE),
+    -- Rusty Eggs Benedict
+    (48, 4, 27, FALSE),
+    -- Rusty Salmon
+    (49, 4, 8, TRUE),
+    -- Rusty Burger
+    -- Rusty Lunch Menu
+    (8, 5, 8, TRUE),
+    -- Rusty Burger
+    (9, 5, 9, FALSE),
+    -- Rusty Salad
+    (19, 5, 19, FALSE),
+    -- Rusty Sandwich
+    (20, 5, 20, FALSE),
+    -- Rusty Soup
+    (21, 5, 21, TRUE),
+    -- Rusty Tacos
+    (22, 5, 22, FALSE),
+    -- Rusty Pizza
+    (23, 5, 23, FALSE),
+    -- Rusty Pasta
+    (24, 5, 24, FALSE),
+    -- Rusty Chicken Wrap
+    (25, 5, 25, FALSE),
+    -- Rusty Quesadilla
+    (26, 5, 26, TRUE),
+    -- Rusty Mac and Cheese
+    (50, 5, 10, FALSE),
+    -- Rusty Steak
+    (51, 5, 12, TRUE),
+    -- Rusty French Toast
+    -- Rusty Dinner Menu
+    (10, 6, 10, TRUE),
+    -- Rusty Steak
+    (27, 6, 27, FALSE),
+    -- Rusty Salmon
+    (28, 6, 28, FALSE),
+    -- Rusty Lobster
+    (29, 6, 29, TRUE),
+    -- Rusty Pork Chops
+    (30, 6, 30, FALSE),
+    -- Rusty Lamb Chops
+    (31, 6, 31, FALSE),
+    -- Rusty Beef Wellington
+    (32, 6, 32, FALSE),
+    -- Rusty Shrimp
+    (33, 6, 33, FALSE),
+    -- Rusty Duck
+    (34, 6, 34, FALSE),
+    -- Rusty Ribs
+    (35, 6, 35, TRUE),
+    -- Rusty Meatloaf
+    (55, 6, 43, FALSE),
+    -- Rusty Prime Rib
+    (56, 6, 44, TRUE),
+    -- Rusty Pot Roast
+    (57, 6, 45, FALSE),
+    -- Rusty Stuffed Peppers
+    (58, 6, 46, FALSE),
+    -- Rusty Chicken Parmesan
+    (59, 6, 47, TRUE);
+-- Rusty Lasagna
 -- Insert sample tags with explicit IDs
 INSERT INTO tag (tag_id, name)
-VALUES (1, 'Gluten-Free'),
-    (2, 'Vegan'),
-    (3, 'Spicy'),
-    (4, 'Popular');
-ALTER SEQUENCE tag_tag_id_seq RESTART WITH 5;
+VALUES (5, 'Rusty'),
+    (6, 'Iron-Rich'),
+    (7, 'Unique'),
+    (8, 'Chefs Special'),
+    (9, 'New');
 -- Insert sample dish tags with explicit IDs
 INSERT INTO dish_tag (dish_tag_id, id_dish, id_tag)
-VALUES (1, 1, 4),
-    -- Pancakes are popular
-    (2, 2, 2),
-    -- Omelette is vegan
-    (3, 3, 3),
-    -- Burger is spicy
-    (4, 4, 4),
-    -- Salad is popular
-    (5, 5, 4);
-ALTER SEQUENCE dish_tag_dish_tag_id_seq RESTART WITH 6;
--- Steak is popular
+VALUES -- Rusty dishes
+    (6, 6, 5),
+    (7, 7, 5),
+    (8, 8, 5),
+    (9, 9, 5),
+    (10, 10, 5),
+    (11, 11, 5),
+    (12, 12, 5),
+    (13, 13, 5),
+    (14, 14, 5),
+    (15, 15, 5),
+    (16, 16, 5),
+    (17, 17, 5),
+    (18, 18, 5),
+    (19, 19, 5),
+    (20, 20, 5),
+    (21, 21, 5),
+    (22, 22, 5),
+    (23, 23, 5),
+    (24, 24, 5),
+    (25, 25, 5),
+    (26, 26, 5),
+    (27, 27, 5),
+    (28, 28, 5),
+    (29, 29, 5),
+    (30, 30, 5),
+    (31, 31, 5),
+    (32, 32, 5),
+    (33, 33, 5),
+    (34, 34, 5),
+    (35, 35, 5),
+    (36, 36, 5),
+    (37, 37, 5),
+    (38, 38, 5),
+    (39, 39, 5),
+    (40, 40, 5),
+    (41, 41, 5),
+    (42, 42, 5),
+    (43, 43, 5),
+    (44, 44, 5),
+    (45, 45, 5),
+    (46, 46, 5),
+    (47, 47, 5),
+    -- Iron-Rich dishes
+    (48, 6, 6),
+    (49, 7, 6),
+    (50, 10, 6),
+    (51, 11, 6),
+    (52, 15, 6),
+    (53, 16, 6),
+    (54, 27, 6),
+    (55, 28, 6),
+    (56, 30, 6),
+    (57, 32, 6),
+    (58, 43, 6),
+    (59, 44, 6),
+    (60, 45, 6),
+    (61, 46, 6),
+    (62, 47, 6),
+    -- Unique dishes
+    (63, 6, 7),
+    (64, 10, 7),
+    (65, 13, 7),
+    (66, 18, 7),
+    (67, 21, 7),
+    (68, 26, 7),
+    (69, 29, 7),
+    (70, 31, 7),
+    (71, 34, 7),
+    (72, 35, 7),
+    (73, 36, 7),
+    (74, 37, 7),
+    (75, 38, 7),
+    (76, 39, 7),
+    (77, 40, 7),
+    (78, 41, 7),
+    (79, 42, 7),
+    (80, 44, 7),
+    (81, 47, 7),
+    -- Chefs Special dishes
+    (82, 6, 8),
+    (83, 10, 8),
+    (84, 13, 8),
+    (85, 18, 8),
+    (86, 21, 8),
+    (87, 26, 8),
+    (88, 29, 8),
+    (89, 31, 8),
+    (90, 34, 8),
+    (91, 35, 8),
+    (92, 36, 8),
+    (93, 37, 8),
+    (94, 39, 8),
+    (95, 44, 8),
+    (96, 47, 8),
+    -- New dishes
+    (97, 11, 9),
+    (98, 12, 9),
+    (99, 14, 9),
+    (100, 15, 9),
+    (101, 17, 9),
+    (102, 19, 9),
+    (103, 20, 9),
+    (104, 22, 9),
+    (105, 23, 9),
+    (106, 25, 9),
+    (107, 38, 9),
+    (108, 40, 9),
+    (109, 41, 9),
+    (110, 42, 9),
+    (111, 45, 9),
+    (112, 46, 9),
+    (113, 47, 9);
 -- Insert sample tables with explicit IDs
 INSERT INTO "table" (
         table_id,
@@ -359,16 +529,14 @@ INSERT INTO "table" (
         width,
         height
     )
-VALUES (1, 4, 10, 20, 100, 50),
-    (2, 2, 50, 100, 60, 60),
-    (3, 6, 150, 200, 120, 80);
-ALTER SEQUENCE table_table_id_seq RESTART WITH 4;
+VALUES (4, 4, 30, 40, 110, 55),
+    (5, 2, 70, 120, 65, 65),
+    (6, 6, 160, 210, 130, 85);
 -- Insert sample persons with explicit IDs
 INSERT INTO person (person_id, name, phone)
-VALUES (1, 'John Doe', '555-1234'),
-    (2, 'Jane Smith', '555-5678'),
-    (3, 'Alice Johnson', '555-9101');
-ALTER SEQUENCE person_person_id_seq RESTART WITH 4;
+VALUES (4, 'Rusty Jones', '555-2024'),
+    (5, 'Rustina Smith', '555-3035'),
+    (6, 'Irona Brown', '555-4046');
 -- Insert sample reservations with explicit IDs
 INSERT INTO reservation (
         reservation_id,
@@ -398,10 +566,8 @@ VALUES (
         '2024-06-25 21:00:00',
         6
     );
-ALTER SEQUENCE reservation_reservation_id_seq RESTART WITH 4;
 -- Insert sample table reservations with explicit IDs
 INSERT INTO table_reservation (table_reservation_id, id_table, id_reservation)
-VALUES (1, 1, 1),
-    (2, 2, 2),
-    (3, 3, 3);
-ALTER SEQUENCE table_reservation_table_reservation_id_seq RESTART WITH 4;
+VALUES (4, 4, 4),
+    (5, 5, 5),
+    (6, 6, 6);
