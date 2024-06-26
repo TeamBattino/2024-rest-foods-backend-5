@@ -40,8 +40,7 @@ use crate::{
     cors::Cors,
     db::establish_connection,
     endpoint_models,
-    entities::{dish, menucard, person, reservation, setting, table, tag},
-    inserteable_models, models,
+    entities::{dish, menucard, person, reservation, setting, table, tag}, models,
 };
 
 /// Query parameters that can be used in the API requests.
@@ -478,7 +477,7 @@ fn get_all_persons(query: QueryParams) -> Json<Vec<endpoint_models::Person>> {
 /// ```
 #[openapi]
 #[post("/person", format = "json", data = "<person>")]
-fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person> {
+fn post_person(person: Json<models::Person>) -> Json<models::Person> {
     let response = person::insert_person(&mut establish_connection(), person);
     Json(response)
 }
@@ -507,7 +506,7 @@ fn post_person(person: Json<inserteable_models::Person>) -> Json<models::Person>
 #[openapi]
 #[post("/reservation", format = "json", data = "<reservation>")]
 fn post_reservation(
-    reservation: Json<inserteable_models::Reservation>,
+    reservation: Json<models::Reservation>,
 ) -> Json<models::Reservation> {
     let response = reservation::insert_reservation(&mut establish_connection(), reservation);
     Json(response)
@@ -515,7 +514,7 @@ fn post_reservation(
 
 #[openapi]
 #[post("/table", format = "json", data = "<table>")]
-fn post_table(table: Json<inserteable_models::Table>) -> Json<models::Table> {
+fn post_table(table: Json<models::Table>) -> Json<models::Table> {
     let response = table::insert_table(&mut establish_connection(), table);
     Json(response)
 }

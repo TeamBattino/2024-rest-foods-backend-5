@@ -9,7 +9,7 @@ use diesel::{
     query_dsl::methods::SelectDsl, result::Error, PgConnection, RunQueryDsl, SelectableHelper,
 };
 
-use super::menucard::{self, get_menucard};
+use super::menucard::get_menucard;
 
 /// Retrieves the setting, including an optional expansion for the active menucard.
 ///

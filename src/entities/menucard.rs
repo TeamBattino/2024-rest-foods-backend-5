@@ -5,12 +5,11 @@
 //! - `get_all_menucards`: Retrieves all menucards, including optional expansions for dishes.
 //! - `expand_dishes`: Helper function to expand dishes for a menucard.
 
-use crate::schema::menucard;
-use crate::schema::menucard_dish::{self, chefs_choice};
+use crate::schema::{menucard, menucard_dish};
 use crate::{endpoint_models, models};
 use diesel::result::Error;
 use diesel::PgConnection;
-use diesel::{prelude::*, result};
+use diesel::prelude::*;
 
 use super::dish::get_dish;
 
