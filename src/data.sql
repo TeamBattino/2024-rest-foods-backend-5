@@ -1,3 +1,4 @@
+ALTER SEQUENCE menucard_menucard_id_seq RESTART WITH 4;
 -- Insert sample menucards with explicit IDs
 INSERT INTO menucard (menucard_id, name)
 VALUES (4, 'Rusty Breakfast Menu'),
@@ -571,3 +572,23 @@ INSERT INTO table_reservation (table_reservation_id, id_table, id_reservation)
 VALUES (4, 4, 4),
     (5, 5, 5),
     (6, 6, 6);
+-- Update sequence for menucard table
+ALTER SEQUENCE menucard_menucard_id_seq RESTART WITH 7;
+-- Update sequence for setting table (assuming there's a sequence, adjust if necessary)
+ALTER SEQUENCE setting_setting_id_seq RESTART WITH 3;
+-- Update sequence for dish table
+ALTER SEQUENCE dish_dish_id_seq RESTART WITH 48;
+-- Update sequence for menucard_dish table
+ALTER SEQUENCE menucard_dish_menucard_dish_id_seq RESTART WITH 60;
+-- Update sequence for tag table
+ALTER SEQUENCE tag_tag_id_seq RESTART WITH 10;
+-- Update sequence for dish_tag table
+ALTER SEQUENCE dish_tag_dish_tag_id_seq RESTART WITH 114;
+-- Update sequence for table table (assuming there's a sequence, adjust if necessary)
+ALTER SEQUENCE table_table_id_seq RESTART WITH 7;
+-- Update sequence for person table
+ALTER SEQUENCE person_person_id_seq RESTART WITH 7;
+-- Update sequence for reservation table
+ALTER SEQUENCE reservation_reservation_id_seq RESTART WITH 7;
+-- Update sequence for table_reservation table
+ALTER SEQUENCE table_reservation_table_reservation_id_seq RESTART WITH 7;
