@@ -1,5 +1,7 @@
 # 2024-rustic-foods-backend-5
 
+[Documentation](https://docs.google.com/document/d/1KHPHudExMSFTogelUQM4CoiMmWO4WIbcFoCGPUv4fiU/edit#heading=h.980yua1tt23w) in Google Docs
+
 ## Prerequisites
 
 - Rust
@@ -23,3 +25,5 @@ Run Diesel migrations:
 ```bash
 diesel migration run
 ```
+
+Sample data is given in the file `data.sql`
