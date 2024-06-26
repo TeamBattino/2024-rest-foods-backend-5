@@ -404,7 +404,7 @@ INSERT INTO tag (tag_id, name)
 VALUES (5, 'Rusty'),
     (6, 'Iron-Rich'),
     (7, 'Unique'),
-    (8, 'Chefs Special'),
+    (8, 'Chefs most Dispised'),
     (9, 'New');
 -- Insert sample dish tags with explicit IDs
 INSERT INTO dish_tag (dish_tag_id, id_dish, id_tag)
