@@ -6,7 +6,7 @@
 //! - `expand_reservations`: Helper function to expand reservations for a table.
 
 use crate::schema::table::{coord_x, coord_y, height, seat_count, width};
-use crate::schema::{self, table, table_reservation};
+use crate::schema::{self, table_reservation};
 use crate::{endpoint_models, models};
 use diesel::dsl::insert_into;
 use diesel::prelude::*;
@@ -32,7 +32,7 @@ pub fn get_table(
     id: i32,
     expansions: &Vec<&str>,
 ) -> Result<endpoint_models::Table, Error> {
-    let models_table: models::Table = table::dsl::table
+    let models_table: models::Table = schema::table::dsl::table
         .find(id)
         .select(models::Table::as_select())
         .first::<models::Table>(conn)?;
@@ -66,7 +66,7 @@ pub fn get_all_tables(
     conn: &mut PgConnection,
     expansions: &Vec<&str>,
 ) -> Result<Vec<endpoint_models::Table>, Error> {
-    let models_tables = table::dsl::table
+    let models_tables = schema::table::dsl::table
         .select(models::Table::as_select())
         .load::<models::Table>(conn)?;
     let entrypoints_tables = models_tables
@@ -135,14 +135,24 @@ fn expand_reservations(
 
 pub fn insert_table(
     conn: &mut PgConnection,
-    table: Json<models::Table>
-) -> models::Table{
-    insert_into(schema::table::dsl::table).values((
+    table: Json<endpoint_models::Table>
+) -> endpoint_models::Table{
+    let models_table: models::Table = insert_into(schema::table::dsl::table).values((
         seat_count.eq(table.seat_count),
         coord_x.eq(table.coord_x),
         coord_y.eq(table.coord_y),
         width.eq(table.width),
         height.eq(table.height)
     ))
-    .get_result(conn).unwrap()
+    .get_result(conn).unwrap();
+
+    endpoint_models::Table {
+        table_id: models_table.table_id,
+        seat_count: models_table.seat_count,
+        coord_x: models_table.coord_x,
+        coord_y: models_table.coord_y,
+        width: models_table.width,
+        height: models_table.height,
+        reservations: None
+    }
 }

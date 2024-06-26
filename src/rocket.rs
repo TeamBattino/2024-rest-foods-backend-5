@@ -477,7 +477,7 @@ fn get_all_persons(query: QueryParams) -> Json<Vec<endpoint_models::Person>> {
 /// ```
 #[openapi]
 #[post("/person", format = "json", data = "<person>")]
-fn post_person(person: Json<models::Person>) -> Json<models::Person> {
+fn post_person(person: Json<endpoint_models::Person>) -> Json<endpoint_models::Person> {
     let response = person::insert_person(&mut establish_connection(), person);
     Json(response)
 }
@@ -506,15 +506,15 @@ fn post_person(person: Json<models::Person>) -> Json<models::Person> {
 #[openapi]
 #[post("/reservation", format = "json", data = "<reservation>")]
 fn post_reservation(
-    reservation: Json<models::Reservation>,
-) -> Json<models::Reservation> {
+    reservation: Json<endpoint_models::Reservation>,
+) -> Json<endpoint_models::Reservation> {
     let response = reservation::insert_reservation(&mut establish_connection(), reservation);
     Json(response)
 }
 
 #[openapi]
 #[post("/table", format = "json", data = "<table>")]
-fn post_table(table: Json<models::Table>) -> Json<models::Table> {
+fn post_table(table: Json<endpoint_models::Table>) -> Json<endpoint_models::Table> {
     let response = table::insert_table(&mut establish_connection(), table);
     Json(response)
 }

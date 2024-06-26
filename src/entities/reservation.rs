@@ -164,9 +164,9 @@ fn expand_person(
 
 pub fn insert_reservation(
     conn: &mut PgConnection,
-    reservation: Json<models::Reservation>,
-) -> models::Reservation {
-    insert_into(reservation::dsl::reservation)
+    reservation: Json<endpoint_models::Reservation>,
+) -> endpoint_models::Reservation {
+    let models_reservation: models::Reservation = insert_into(reservation::dsl::reservation)
         .values((
             id_person.eq(reservation.id_person.clone()),
             start_timestamp.eq(reservation.start_timestamp.clone()),
@@ -174,5 +174,30 @@ pub fn insert_reservation(
             person_count.eq(reservation.person_count.clone()),
         ))
         .get_result(conn)
-        .unwrap()
+        .unwrap();
+
+    match &reservation.tables {
+        Some(tables) => {
+            for table in tables {
+                insert_into(table_reservation::dsl::table_reservation)
+                    .values((
+                        table_reservation::id_table.eq(table.table_id),
+                        table_reservation::id_reservation.eq(models_reservation.reservation_id),
+                    ))
+                    .execute(conn)
+                    .unwrap();
+            }
+        }
+        None => {}
+    }
+
+    endpoint_models::Reservation {
+        reservation_id: models_reservation.reservation_id,
+        id_person: models_reservation.id_person,
+        start_timestamp: models_reservation.start_timestamp,
+        end_timestamp: models_reservation.end_timestamp,
+        person_count: models_reservation.person_count,
+        tables: None,
+        person: None,
+    }
 }
