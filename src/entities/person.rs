@@ -8,7 +8,7 @@
 use diesel::{dsl::insert_into, ExpressionMethods, PgConnection, RunQueryDsl};
 use rocket::serde::json::Json;
 
-use crate::{inserteable_models, models};
+use crate::models;
 
 use crate::endpoint_models;
 use crate::schema::person;
@@ -131,7 +131,7 @@ fn expand_reservations(
 
 pub fn insert_person(
     conn: &mut PgConnection,
-    person: Json<inserteable_models::Person>,
+    person: Json<models::Person>,
 ) -> models::Person {
     insert_into(person::dsl::person)
         .values((

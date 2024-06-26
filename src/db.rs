@@ -3,8 +3,6 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
-use crate::schema::setting;
-
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
 

@@ -5,10 +5,9 @@
 //! - `get_all_tables`: Retrieves all tables, including optional expansions for reservations.
 //! - `expand_reservations`: Helper function to expand reservations for a table.
 
-use crate::schema::reservation::{self};
 use crate::schema::table::{coord_x, coord_y, height, seat_count, width};
 use crate::schema::{self, table, table_reservation};
-use crate::{endpoint_models, inserteable_models, models};
+use crate::{endpoint_models, models};
 use diesel::dsl::insert_into;
 use diesel::prelude::*;
 use diesel::result::Error;
@@ -136,7 +135,7 @@ fn expand_reservations(
 
 pub fn insert_table(
     conn: &mut PgConnection,
-    table: Json<inserteable_models::Table>
+    table: Json<models::Table>
 ) -> models::Table{
     insert_into(schema::table::dsl::table).values((
         seat_count.eq(table.seat_count),

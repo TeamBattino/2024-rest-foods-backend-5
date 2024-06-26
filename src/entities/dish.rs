@@ -6,12 +6,8 @@
 //! - `expand_tags`: Helper function to expand tags for a dish.
 //! - `expand_menucards`: Helper function to expand menucards for a dish.
 
-use crate::schema::dish::name;
-use crate::schema::menucard::{self, menucard_id};
-use crate::schema::{dish, dish_tag, menucard_dish, tag};
+use crate::schema::{dish, dish_tag, menucard_dish};
 use crate::{endpoint_models, models};
-use diesel::dsl::select;
-use diesel::expression::is_aggregate::No;
 use diesel::prelude::*;
 use diesel::result::Error;
 use diesel::PgConnection;
