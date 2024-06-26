@@ -131,13 +131,19 @@ fn expand_reservations(
 
 pub fn insert_person(
     conn: &mut PgConnection,
-    person: Json<models::Person>,
-) -> models::Person {
-    insert_into(person::dsl::person)
+    person: Json<endpoint_models::Person>,
+) -> endpoint_models::Person {
+    let models_person:models::Person = insert_into(person::dsl::person)
         .values((
             person::name.eq(person.name.clone()),
             person::phone.eq(person.phone.clone()),
         ))
         .get_result(conn)
-        .unwrap()
+        .unwrap();
+    endpoint_models::Person {
+        person_id: models_person.person_id,
+        name: models_person.name,
+        phone: models_person.phone,
+        reservations: None,
+    }
 }
